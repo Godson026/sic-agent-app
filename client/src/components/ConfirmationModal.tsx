@@ -31,24 +31,24 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
-      <div className="bg-white rounded-lg p-6 w-5/6 max-w-md">
-        <div className="text-center mb-4">
+      <div className="bg-white rounded-lg p-6 w-5/6 max-w-md shadow-xl">
+        <div className="text-center mb-5">
           {icon || (
-            <span className="material-icons text-5xl text-[#4CAF50]">check_circle</span>
+            <span className="material-icons text-5xl text-[#4CAF50] bg-green-50 p-3 rounded-full inline-block">check_circle</span>
           )}
-          <h3 className="text-xl font-bold mt-2">{title}</h3>
-          {description && <p className="text-[#9e9e9e] mt-1">{description}</p>}
+          <h3 className="text-xl font-bold mt-3 text-gray-800">{title}</h3>
+          {description && <p className="text-gray-500 mt-1 text-sm">{description}</p>}
         </div>
 
-        <div className="border rounded-lg p-4 mb-4">
+        <div className="bg-gray-50 rounded-lg p-4 mb-5 border border-gray-100">
           {content}
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-4">
           {secondaryAction && (
             <button
               onClick={secondaryAction.onClick}
-              className="px-4 py-2 border border-[#e0e0e0] rounded-lg text-[#424242] flex items-center"
+              className="px-4 py-3 border border-gray-200 rounded-lg text-gray-700 flex items-center justify-center flex-1 hover:bg-gray-50"
             >
               {secondaryAction.label}
             </button>
@@ -56,7 +56,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
           <button
             onClick={primaryAction.onClick}
-            className={`px-4 py-2 bg-primary text-white rounded-lg ${!secondaryAction ? 'w-full' : ''}`}
+            className={`px-4 py-3 bg-primary text-white rounded-lg hover:bg-green-700 flex items-center justify-center ${!secondaryAction ? 'w-full' : 'flex-1'}`}
           >
             {primaryAction.label}
           </button>

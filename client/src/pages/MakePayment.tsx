@@ -105,14 +105,22 @@ const MakePayment: React.FC = () => {
 
   return (
     <div className="page-container">
-      <h2 className="text-2xl font-bold mb-6 text-[#424242]">Make Payment</h2>
+      <div className="summary-card">
+        <div>
+          <h2 className="text-lg font-bold text-gray-700">Make Payment</h2>
+          <p className="text-xs text-gray-500">Record premium payments</p>
+        </div>
+        <div className="summary-card-icon">
+          <span className="material-icons">payments</span>
+        </div>
+      </div>
       
       {/* Policy Lookup Form */}
       <Card className="mb-6">
         <CardContent className="pt-6">
           <form onSubmit={handlePolicyLookup}>
             <div className="mb-4">
-              <Label htmlFor="policyNumber">Policy Number</Label>
+              <Label htmlFor="policyNumber" className="text-sm font-medium text-gray-700 mb-1 block">Policy Number</Label>
               <div className="flex">
                 <Input
                   id="policyNumber"
@@ -122,7 +130,7 @@ const MakePayment: React.FC = () => {
                   placeholder="Enter policy number"
                   required
                 />
-                <Button type="submit" className="ml-2">
+                <Button type="submit" className="ml-2 bg-primary hover:bg-green-700">
                   <span className="material-icons">search</span>
                 </Button>
               </div>
@@ -136,9 +144,12 @@ const MakePayment: React.FC = () => {
         <Card className="mb-6">
           <CardContent className="pt-6">
             <div className="border-b pb-3 mb-3">
-              <h3 className="font-medium text-[#424242]">Client Information</h3>
+              <div className="flex items-center mb-2">
+                <span className="material-icons text-primary mr-2">person</span>
+                <h3 className="font-medium text-gray-700">Client Information</h3>
+              </div>
               <p className="text-xl font-bold">{foundClient.fullName}</p>
-              <p className="text-sm text-[#9e9e9e]">{foundClient.occupation}</p>
+              <p className="text-sm text-gray-500">{foundClient.occupation}</p>
             </div>
             
             <Form {...paymentForm}>
@@ -204,36 +215,50 @@ const MakePayment: React.FC = () => {
       )}
       
       {/* Recent Payments */}
-      <div className="mt-6">
-        <h3 className="font-medium text-[#424242] mb-2">Recent Payments</h3>
-        <Card>
-          <CardContent className="pt-6">
-            {todayPayments.length === 0 ? (
-              <div className="text-center py-4 text-[#9e9e9e]">
-                No payments made today
-              </div>
-            ) : (
-              todayPayments.slice(0, 5).map((payment) => (
-                <div 
-                  key={payment.id} 
-                  className="border-b last:border-b-0 pb-3 mb-3 last:mb-0"
-                >
-                  <div className="flex justify-between">
+      <div className="summary-card mb-3">
+        <div>
+          <h3 className="font-medium text-gray-700">Recent Payments</h3>
+          <p className="text-xs text-gray-500">Last 5 transactions</p>
+        </div>
+        <span className="text-xs bg-primary text-white px-2 py-1 rounded-full">
+          {todayPayments.length}
+        </span>
+      </div>
+      
+      <Card>
+        <CardContent className="pt-6">
+          {todayPayments.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              <span className="material-icons text-4xl text-gray-300 mb-2">receipt_long</span>
+              <p>No payments made today</p>
+            </div>
+          ) : (
+            todayPayments.slice(0, 5).map((payment) => (
+              <div 
+                key={payment.id} 
+                className="border-b last:border-b-0 py-3"
+              >
+                <div className="flex justify-between items-center">
+                  <div className="flex items-start">
+                    <span className="material-icons text-primary mr-2 mt-1">receipt</span>
                     <div>
                       <p className="font-medium">{payment.clientName}</p>
-                      <p className="text-xs text-[#9e9e9e]">{payment.policyNumber}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold">{formatCurrency(payment.amount / 100)}</p>
-                      <p className="text-xs text-[#9e9e9e]">{formatTime(new Date(payment.timestamp))}</p>
+                      <p className="text-xs text-gray-500">{payment.policyNumber}</p>
+                      <p className="text-xs text-gray-400">{formatTime(new Date(payment.timestamp))}</p>
                     </div>
                   </div>
+                  <div className="text-right">
+                    <p className="font-bold text-lg">{formatCurrency(payment.amount / 100)}</p>
+                    <span className={`text-xs ${payment.paymentMode === 'Cash' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600'} px-2 py-1 rounded-full`}>
+                      {payment.paymentMode}
+                    </span>
+                  </div>
                 </div>
-              ))
-            )}
-          </CardContent>
-        </Card>
-      </div>
+              </div>
+            ))
+          )}
+        </CardContent>
+      </Card>
       
       {/* Receipt Modal */}
       {receipt && (
@@ -245,23 +270,23 @@ const MakePayment: React.FC = () => {
           content={
             <>
               <div className="flex justify-between mb-2">
-                <p className="text-[#9e9e9e]">Client:</p>
+                <p className="text-gray-500">Client:</p>
                 <p className="font-medium">{receipt.clientName}</p>
               </div>
               <div className="flex justify-between mb-2">
-                <p className="text-[#9e9e9e]">Policy No:</p>
+                <p className="text-gray-500">Policy No:</p>
                 <p className="font-medium">{receipt.policyNumber}</p>
               </div>
               <div className="flex justify-between mb-2">
-                <p className="text-[#9e9e9e]">Amount:</p>
+                <p className="text-gray-500">Amount:</p>
                 <p className="font-medium">{formatCurrency(receipt.amount)}</p>
               </div>
               <div className="flex justify-between mb-2">
-                <p className="text-[#9e9e9e]">Date & Time:</p>
+                <p className="text-gray-500">Date & Time:</p>
                 <p className="font-medium">{formatDate(receipt.timestamp)}</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-[#9e9e9e]">Payment Mode:</p>
+                <p className="text-gray-500">Payment Mode:</p>
                 <p className="font-medium">{receipt.paymentMode}</p>
               </div>
             </>
