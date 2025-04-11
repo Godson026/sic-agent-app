@@ -1,0 +1,97 @@
+Build a mobile app called SIKAPLAN Sales App for a microinsurance company. The app will be used by field sales representatives to digitally manage client registration, premium collection, and daily reporting.
+
+📱 App Overview:
+The app should work offline and sync data when online. It is targeted at Android smartphones and designed for simple, fast usage in the field.
+
+👤 Users:
+Sales Representatives (no login for now, but include a placeholder for future login)
+
+🔧 Main Features:
+1. Make Payment
+Feature name: Make Payment
+
+Input field for Policy Number
+
+When a valid policy number is entered:
+
+The client’s full name should be displayed
+
+Allow entry of payment amount (in GHS)
+
+Select mode of payment (dropdown: Cash, MoMo)
+
+Tap “Confirm Payment” to:
+
+Store payment info (policy number, name, amount, time)
+
+Generate a receipt (optional screen)
+
+Payment is added to the daily statement
+
+2. Register New Client
+Feature name: Register Client
+
+Digital form to collect:
+
+Full Name
+
+Age
+
+Gender
+
+Occupation
+
+Contact Number
+
+Preferred payment type (Daily, Weekly, Monthly)
+
+Daily premium amount (GHS)
+
+After submission:
+
+Generate a temporary policy number like: TEMP20250411001
+
+Save client data to “New Business” list for the day
+
+Form resets after every successful registration
+
+Option to view/edit registrations for the day
+
+3. New Business
+Feature name: New Business
+
+Shows a list of all clients registered for the day
+
+Display name, temp policy number, and premium
+
+Displays a counter: e.g., New Business (3) if 3 clients were registered
+
+Data can be reviewed and sent to the main office database later
+
+4. Daily Statement
+Feature name: Payment Statement
+
+Displays summary of the day’s activity:
+
+Total number of clients paid
+
+Total amount collected (sum of payments)
+
+List of all transactions:
+
+Client name, policy number, amount, time of payment
+
+Should have a button to “Export or Submit” to the main office (placeholder for now)
+
+📦 Additional Notes:
+All data should be stored locally on the device and optionally synced to Firebase/Firestore
+
+Include timestamp with every payment and registration
+
+Use a clean, user-friendly layout with buttons and large text for easy field use
+
+Each action (register or payment) shows confirmation alerts
+
+You can use mock data for client name lookup by policy number
+
+Temporary policy numbers should be generated with date + counter logic
